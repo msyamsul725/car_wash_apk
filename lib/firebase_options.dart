@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '367520072824',
     projectId: 'carwash-896f7',
     storageBucket: 'carwash-896f7.appspot.com',
-    iosClientId: '367520072824-imb9mbcul2g3t0asm8n5gag9vq8g439t.apps.googleusercontent.com',
+    iosClientId:
+        '367520072824-imb9mbcul2g3t0asm8n5gag9vq8g439t.apps.googleusercontent.com',
     iosBundleId: 'com.example.blankFireSetstate',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '367520072824',
     projectId: 'carwash-896f7',
     storageBucket: 'carwash-896f7.appspot.com',
-    iosClientId: '367520072824-imb9mbcul2g3t0asm8n5gag9vq8g439t.apps.googleusercontent.com',
+    iosClientId:
+        '367520072824-imb9mbcul2g3t0asm8n5gag9vq8g439t.apps.googleusercontent.com',
     iosBundleId: 'com.example.blankFireSetstate',
   );
 }
