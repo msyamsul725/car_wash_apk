@@ -40,4 +40,17 @@ class LoginController extends GetxController {
       debugPrint("gagal login bray");
     }
   }
+
+  doLoginEmail() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: "user@demo.com",
+        password: "123456",
+      );
+      //----->
+      Get.offAll(const MainNavigationView());
+    } on Exception catch (_) {
+      Get.snackbar("Gagal", "Periksa Email & Password Kembali");
+    }
+  }
 }

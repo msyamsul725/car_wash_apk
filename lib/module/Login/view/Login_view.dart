@@ -79,7 +79,7 @@ class LoginView extends StatelessWidget {
                     padding: const EdgeInsets.all(12),
                     margin: const EdgeInsets.only(),
                     child: TextFormField(
-                      initialValue: 'admin@gmail.com',
+                      initialValue: 'user@demo.com',
                       maxLength: 20,
                       decoration: const InputDecoration(
                         labelText: 'Email',
@@ -137,7 +137,9 @@ class LoginView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(64.0),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        controller.doLoginEmail();
+                      },
                       child: const Text("Sign In"),
                     ),
                   ),
