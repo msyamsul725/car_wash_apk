@@ -1,0 +1,9 @@
+{
+    "modules": [
+        "welcome",
+        "Login",
+        "main_navigation",
+        "dashboard",
+        "product_detail"
+    ]
+}

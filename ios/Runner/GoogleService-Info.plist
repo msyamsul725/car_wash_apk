@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>367520072824-imb9mbcul2g3t0asm8n5gag9vq8g439t.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.367520072824-imb9mbcul2g3t0asm8n5gag9vq8g439t</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDOekJb1X2Ko8XubSgebXZCUKa2FFMAXj0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>367520072824</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.blankFireSetstate</string>
+	<key>PROJECT_ID</key>
+	<string>carwash-896f7</string>
+	<key>STORAGE_BUCKET</key>
+	<string>carwash-896f7.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:367520072824:ios:1d964e3b5f96642e51d98d</string>
+</dict>
+</plist>
