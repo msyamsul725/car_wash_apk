@@ -10,7 +10,8 @@ void main() async {
   Widget mainView = const WelcomeView();
   if (Platform.isAndroid) {
     if (FirebaseAuth.instance.currentUser != null) {
-      mainView = const MainNavigationView();
+      mainView = const SelectPackageView();
+      // mainView = const SelectDateView();
     }
   }
 
