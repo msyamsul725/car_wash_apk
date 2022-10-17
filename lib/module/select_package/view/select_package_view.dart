@@ -1,10 +1,15 @@
+import 'package:fhe_template/models/carWash/car_wash.dart';
 import 'package:flutter/material.dart';
 import '../controller/select_package_controller.dart';
 import '../widget/checkbox_options.dart';
 import 'package:get/get.dart';
 
 class SelectPackageView extends StatelessWidget {
-  const SelectPackageView({Key? key}) : super(key: key);
+  final CarWash item;
+  const SelectPackageView({
+    Key? key,
+    required this.item,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
