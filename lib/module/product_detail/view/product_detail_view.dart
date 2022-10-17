@@ -14,9 +14,6 @@ class ProductDetailView extends StatelessWidget {
         controller.view = this;
 
         return Scaffold(
-          appBar: AppBar(
-            title: const Text("ProductDetail"),
-          ),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
