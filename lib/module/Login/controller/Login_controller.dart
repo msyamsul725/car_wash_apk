@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../../../services/user_service.dart';
 
 class LoginController extends GetxController {
   LoginView? view;
@@ -47,7 +46,8 @@ class LoginController extends GetxController {
         email: "user@demo.com",
         password: "123456",
       );
-      //----->
+      // UserService.doSaveUserDataEmail(
+      //     email: "user@demo.com", name: "user no fount");
       Get.offAll(const MainNavigationView());
     } on Exception catch (_) {
       Get.snackbar("Gagal", "Periksa Email & Password Kembali");

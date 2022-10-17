@@ -11,4 +11,19 @@ class CarWashService {
       "description": carWash.description,
     });
   }
+
+  static addPackage(
+      {required String title,
+      required String price,
+      required String duration,
+      required String description,
+      required String idtoko}) async {
+    await FirebaseFirestore.instance.collection("package_item").add({
+      "toko_id": idtoko,
+      "title_package": title,
+      "price_package": price,
+      "duration_package": duration,
+      "description_package": description,
+    });
+  }
 }
