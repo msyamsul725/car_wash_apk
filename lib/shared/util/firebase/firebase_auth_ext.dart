@@ -1,18 +1,18 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 
-enum FirebaseAuthExtensionEnum {
-  dev,
-}
+// enum FirebaseAuthExtensionEnum {
+//   dev,
+// }
 
-extension FirebaseAuthExtension on FirebaseAuth {
-  wait() async {
-    bool ready = false;
-    FirebaseAuth.instance.authStateChanges().listen((event) {
-      ready = true;
-    });
+// extension FirebaseAuthExtension on FirebaseAuth {
+//   wait() async {
+//     bool ready = false;
+//     FirebaseAuth.instance.authStateChanges().listen((event) {
+//       ready = true;
+//     });
 
-    while (ready == false) {
-      await Future.delayed(const Duration(milliseconds: 250));
-    }
-  }
-}
+//     while (ready == false) {
+//       await Future.delayed(const Duration(milliseconds: 250));
+//     }
+//   }
+// }

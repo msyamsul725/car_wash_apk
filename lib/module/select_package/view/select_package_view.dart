@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fhe_template/core.dart';
 import 'package:flutter/material.dart';
-import '../controller/select_package_controller.dart';
-import '../widget/checkbox_options.dart';
 import 'package:get/get.dart';
 
 class SelectPackageView extends StatelessWidget {
-  const SelectPackageView({Key? key}) : super(key: key);
+  CarWash item;
+  SelectPackageView({required this.item, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,126 +31,54 @@ class SelectPackageView extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
+                  Container(
+                    height: 300,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          "${item.photo}",
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(
+                          16.0,
+                        ),
+                      ),
+                    ),
+                  ),
                   SizedBox(
-                    height: 180.0,
-                    child: ListView.builder(
-                      itemCount: 3,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          height: 180.0,
-                          width: 150,
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(
-                            color: Colors.blue[600],
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(
-                                10.0,
-                              ),
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              Container(
-                                height: 80.0,
-                                width: 130.0,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      "https://i.ibb.co/3pPYd14/freeban.jpg",
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(
-                                      5.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                ),
-                                child: Row(
-                                  children: [
-                                    const Text(
-                                      "Glint",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Container(
-                                      height: 18.0,
-                                      width: 30.0,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(
-                                            5.0,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          "\$20",
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.blue[600]!,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "30 - 40 min",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12,
-                                        color:
-                                            Colors.grey[200]!.withOpacity(0.5),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Text(
-                                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12,
-                                        color:
-                                            Colors.grey[200]!.withOpacity(0.5),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                    height: 180,
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection("package_item")
+                          .where("toko_id", isEqualTo: item.id)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) return const Text("Error");
+                        if (snapshot.data == null) return Container();
+                        if (snapshot.data!.docs.isEmpty) {
+                          return const Text("No Data");
+                        }
+                        final data = snapshot.data!;
+                        return SizedBox(
+                          height: 140.0,
+                          child: ListView.builder(
+                            itemCount: data.docs.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              Map<String, dynamic> item = (data.docs[index]
+                                  .data() as Map<String, dynamic>);
+                              item["id"] = data.docs[index].id;
+                              return ExCardPackage(
+                                onChanged: (value) {},
+                                titlePackate: item["title_package"],
+                                price: item["price_package"],
+                                duration: item["duration_package"],
+                                decription: item["description_package"],
+                              );
+                            },
                           ),
                         );
                       },

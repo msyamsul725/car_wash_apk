@@ -15,24 +15,6 @@ class ProfilView extends StatelessWidget {
       builder: (controller) {
         controller.view = this;
 
-        /*
-  ------------------------
-  https://capekngoding.com
-  ------------------------
-  Starring:
-  Name: Dicky Darmawan
-  Github: https://github.com/Dicky019
-  ------------------------
-  -
-  ------------------------
-  Code generation with snippets can be a good solution for you or it can kill you.
-  A basic understanding of Dart and Flutter is required.
-  Keep it in mind, Our snippet can't generate many files yet.
-  So, all of our snippets are put in one file which is not best practice.
-  You need to do the optimization yourself, and at least you are familiar with using Flutter.
-  ------------------------
-  */
-
         List<Map<String, dynamic>> card1 = [
           {
             'name': 'Marks',
@@ -55,6 +37,7 @@ class ProfilView extends StatelessWidget {
             'color': const Color(0xff34C759),
             'icon':
                 'https://capekngoding.com/uploads/62f5f116098a3_icon_time.png',
+            'onTap': () => Get.to(const FormPackageView())
           },
         ];
 

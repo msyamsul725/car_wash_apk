@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fhe_template/core.dart';
-import 'package:fhe_template/models/carWash/car_wash.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -368,8 +367,9 @@ class DashboardView extends StatelessWidget {
                             item["id"] = data.docs[index].id;
                             var carwash = CarWash.fromJson(item);
                             return InkWell(
-                              onTap: () =>
-                                  Get.to(ProductDetailView(item: carwash)),
+                              onTap: () => Get.to(SelectPackageView(
+                                item: carwash,
+                              )),
                               child: Container(
                                 width: 360.0,
                                 height: 140.0,

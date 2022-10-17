@@ -9,6 +9,8 @@
         "select_date",
         "Profil",
         "List shop",
-        "Form shop"
+        "Form shop",
+        "form_package",
+        "form_add_package"
     ]
 }
