@@ -26,9 +26,7 @@ class _BasicMainNavigationViewState extends State<MainNavigationView> {
             Container(
               color: Colors.purple[100],
             ),
-            Container(
-              color: Colors.blue[100],
-            ),
+            const ProfilView(),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(

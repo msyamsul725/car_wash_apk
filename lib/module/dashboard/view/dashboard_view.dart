@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fhe_template/core.dart';
+import 'package:fhe_template/models/carWash/car_wash.dart';
 import 'package:flutter/material.dart';
-import '../controller/dashboard_controller.dart';
 
 import 'package:get/get.dart';
 
@@ -344,151 +346,185 @@ class DashboardView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    width: 360.0,
-                    height: 140.0,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          16.0,
-                        ),
-                      ),
-                    ),
-                    child: Stack(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(left: 300.0),
-                          width: 77,
-                          height: 40.0,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                "https://i.ibb.co/5xFY8Y8/Untitled-3.png",
-                              ),
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.thumb_up,
-                              color: Colors.white,
-                              size: 18.0,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(
-                            left: 20.0,
-                            top: 20.0,
-                          ),
-                          width: 100.0,
-                          height: 100.0,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                "https://i.ibb.co/Chnc6Z3/close-up-car-care-process-23-2149193579.jpg",
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(
-                                16.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(
-                            left: 124.0,
-                          ),
-                          width: 220.0,
-                          height: 140.0,
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 20.0,
-                              ),
-                              const SizedBox(
-                                height: 40.0,
-                                child: Center(
-                                  child: Text(
-                                    "Cube Cars Service",
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold,
+                  StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection("carwash")
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) return const Text("Error");
+                      if (snapshot.data == null) return Container();
+                      if (snapshot.data!.docs.isEmpty) {
+                        return const Text("No Data");
+                      }
+                      final data = snapshot.data!;
+                      return SizedBox(
+                        height: 140.0,
+                        child: ListView.builder(
+                          itemCount: data.docs.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            Map<String, dynamic> item = (data.docs[index].data()
+                                as Map<String, dynamic>);
+                            item["id"] = data.docs[index].id;
+                            var carwash = CarWash.fromJson(item);
+                            return InkWell(
+                              onTap: () =>
+                                  Get.to(ProductDetailView(item: carwash)),
+                              child: Container(
+                                width: 360.0,
+                                height: 140.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(
+                                      16.0,
                                     ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 30.0,
-                                child: SizedBox(
-                                  height: 80.0,
-                                  child: Row(
-                                    children: const [
-                                      Icon(
-                                        Icons.fmd_good,
-                                        size: 24.0,
-                                        color: Colors.black54,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      margin:
+                                          const EdgeInsets.only(left: 300.0),
+                                      width: 77,
+                                      height: 40.0,
+                                      decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                            "https://i.ibb.co/5xFY8Y8/Untitled-3.png",
+                                          ),
+                                          fit: BoxFit.fitHeight,
+                                        ),
                                       ),
-                                      SizedBox(
-                                        width: 100.0,
-                                        child: Center(
-                                          child: Text(
-                                            "Karawang",
-                                            style: TextStyle(
-                                              color: Colors.black54,
-                                              fontSize: 16.0,
-                                            ),
+                                      child: const Center(
+                                        child: Icon(
+                                          Icons.thumb_up,
+                                          color: Colors.white,
+                                          size: 18.0,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                        left: 20.0,
+                                        top: 20.0,
+                                      ),
+                                      width: 100.0,
+                                      height: 100.0,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                            carwash.photo ??
+                                                "https://i.ibb.co/S32HNjD/no-image.jpg",
+                                          ),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(
+                                            16.0,
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              SizedBox(
-                                height: 20.0,
-                                child: SizedBox(
-                                  height: 100.0,
-                                  child: Row(
-                                    children: const [
-                                      Icon(
-                                        Icons.star,
-                                        color: Colors.orange,
-                                        size: 16.0,
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                        left: 124.0,
                                       ),
-                                      SizedBox(
-                                        width: 100.0,
-                                        child: Text(" (300)"),
-                                      ),
-                                      Expanded(
-                                        child: SizedBox(
-                                          height: 20.0,
-                                          width: 100.0,
-                                          child: Text(
-                                            "30% Off",
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                              color: Color(0xffA22D4E),
-                                              fontSize: 14.0,
+                                      width: 220.0,
+                                      height: 140.0,
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 20.0,
+                                          ),
+                                          SizedBox(
+                                            height: 40.0,
+                                            child: Center(
+                                              child: Text(
+                                                carwash.shopName ?? "_",
+                                                style: const TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
+                                          SizedBox(
+                                            height: 30.0,
+                                            child: SizedBox(
+                                              height: 80.0,
+                                              child: Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.fmd_good,
+                                                    size: 24.0,
+                                                    color: Colors.black54,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 100.0,
+                                                    child: Center(
+                                                      child: Text(
+                                                        carwash.addres ?? "_",
+                                                        style: const TextStyle(
+                                                          color: Colors.black54,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10.0,
+                                          ),
+                                          SizedBox(
+                                            height: 20.0,
+                                            child: SizedBox(
+                                              height: 100.0,
+                                              child: Row(
+                                                children: const [
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: Colors.orange,
+                                                    size: 16.0,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 100.0,
+                                                    child: Text(" (300)"),
+                                                  ),
+                                                  Expanded(
+                                                    child: SizedBox(
+                                                      height: 20.0,
+                                                      width: 100.0,
+                                                      child: Text(
+                                                        "30% Off",
+                                                        textAlign:
+                                                            TextAlign.right,
+                                                        style: TextStyle(
+                                                          color:
+                                                              Color(0xffA22D4E),
+                                                          fontSize: 14.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
+                            );
+                          },
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ],
               ),
