@@ -368,7 +368,7 @@ class DashboardView extends StatelessWidget {
                             var carwash = CarWash.fromJson(item);
                             return InkWell(
                               onTap: () =>
-                                  Get.to(ProductDetailView(item: carwash)),
+                                  Get.to(SelectPackageView(item: carwash)),
                               child: Container(
                                 width: 360.0,
                                 height: 140.0,

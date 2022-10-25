@@ -10,6 +10,7 @@ class FormAddPackageController extends GetxController {
   String price_package = "";
   String duration_package = "";
   String description_package = "";
+  String photo = "";
 
   addDataPackage() {
     debugPrint("tokoId: $tokoId");

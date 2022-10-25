@@ -30,6 +30,12 @@ class FormAddPackageView extends StatelessWidget {
                       controller.titlePackage = text;
                     },
                   ),
+                  ExImagePicker(
+                      id: "photo",
+                      label: "photo",
+                      onChanged: (text) {
+                        controller.photo = text;
+                      }),
                   ExTextField(
                     id: "price",
                     label: "price",

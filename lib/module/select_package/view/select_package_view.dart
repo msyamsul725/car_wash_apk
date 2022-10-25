@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fhe_template/core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controller/select_package_controller.dart';
-import '../widget/checkbox_options.dart';
-import '../widget/service_options.dart';
-
 class SelectPackageView extends StatelessWidget {
-  const SelectPackageView({Key? key}) : super(key: key);
+  final CarWash item;
+  const SelectPackageView({
+    Key? key,
+    required this.item,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,9 @@ class SelectPackageView extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
                   SizedBox(
                     height: 180,
                     child: StreamBuilder<QuerySnapshot>(
@@ -73,12 +77,24 @@ class SelectPackageView extends StatelessWidget {
                               Map<String, dynamic> item = (data.docs[index]
                                   .data() as Map<String, dynamic>);
                               item["id"] = data.docs[index].id;
-                              return ExCardPackage(
-                                onChanged: (value) {},
-                                titlePackate: item["title_package"],
-                                price: item["price_package"],
-                                duration: item["duration_package"],
-                                decription: item["description_package"],
+                              return InkWell(
+                                onTap: () {
+                                  controller.selectedPackage =
+                                      item["id"].toString();
+                                },
+                                child: ExCardPackage(
+                                  onChanged: (value) {
+                                    (controller.selectedPackage ==
+                                            item["id"].toString())
+                                        ? Colors.orange
+                                        : Colors.white;
+                                  },
+                                  photo: item["photo"],
+                                  titlePackate: item["title_package"],
+                                  price: item["price_package"],
+                                  duration: item["duration_package"],
+                                  decription: item["description_package"],
+                                ),
                               );
                             },
                           ),
@@ -106,45 +122,37 @@ class SelectPackageView extends StatelessWidget {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  TCheckBoxOptions(
-                    desckription:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-                    label: "Wax",
-                    onChanged: ((value) {}),
-                    price: 20,
-                  ),
-                  const Divider(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: TCheckBoxOptions(
-                      desckription:
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-                      label: "Scratch Removal",
-                      onChanged: ((value) {}),
-                      price: 25,
-                    ),
-                  ),
-                  const Divider(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: TCheckBoxOptions(
-                      desckription:
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-                      label: "Water-dot Removal",
-                      onChanged: ((value) {}),
-                      price: 15,
-                    ),
-                  ),
-                  const Divider(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: TCheckBoxOptions(
-                      desckription:
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-                      label: "Post descri sap",
-                      onChanged: ((value) {}),
-                      price: 10,
-                    ),
+                  ChecBoxNew(
+                    onChanged: (data) {
+                      int price = 0;
+                      for (var element in data) {
+                        price = element + price;
+                      }
+                      controller.price = price;
+                      controller.update();
+                      debugPrint("harga: $price");
+                    },
+                    price: "2000",
+                    label: "Tempe",
+                    value: "false",
+                    item: const [
+                      {"title": "Wax", "price": 20, "status": false},
+                      {
+                        "title": "Scratch Removal",
+                        "price": 30,
+                        "status": false
+                      },
+                      {
+                        "title": "Water-dot Removal",
+                        "price": 40,
+                        "status": false
+                      },
+                      {
+                        "title": "Post descri sap",
+                        "price": 42,
+                        "status": false
+                      },
+                    ],
                   ),
                 ],
               ),
@@ -160,7 +168,7 @@ class SelectPackageView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12), // <-- Radius
                 ),
               ),
-              onPressed: () {},
+              onPressed: () => Get.to(const SelectDateView()),
               child: const Text("Next"),
             ),
           ),

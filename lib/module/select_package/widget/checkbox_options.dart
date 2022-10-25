@@ -1,80 +1,68 @@
 import 'package:flutter/material.dart';
 
-class TCheckBoxOptions extends StatefulWidget {
-  String? value;
-  final Function(String value) onChanged;
+class ChecBoxNew extends StatefulWidget {
+  final String value;
+  final Function(List Data) onChanged;
   final String? label;
-  final String? desckription;
-  final int? price;
+  final String? price;
+  List? item;
 
-  TCheckBoxOptions({
+  ChecBoxNew({
     Key? key,
-    required this.desckription,
-    required this.price,
-    this.value,
+    required this.value,
     required this.onChanged,
     this.label,
+    this.price,
+    this.item,
   }) : super(key: key);
 
   @override
-  State<TCheckBoxOptions> createState() => _TCheckBoxOptionsState();
+  State<ChecBoxNew> createState() => _ChecBoxNewState();
 }
 
-class _TCheckBoxOptionsState extends State<TCheckBoxOptions> {
-  bool? isChecked = false;
-
+class _ChecBoxNewState extends State<ChecBoxNew> {
+  bool status = false;
+  List selectedValues = [];
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          isChecked = !isChecked!;
+    return ListView.builder(
+        itemCount: widget.item!.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          var items = widget.item![index];
+          bool selected =
+              selectedValues.contains(items["price"]) ? true : false;
+
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Checkbox(
+                  value: selected,
+                  onChanged: (value) {
+                    if (value == true) {
+                      selectedValues.add(items['price']);
+                    } else {
+                      selectedValues.remove(items['price']);
+                    }
+
+                    widget.onChanged(selectedValues);
+
+                    setState(() {});
+                  }),
+              Text(
+                "${items['title']}",
+                style: const TextStyle(
+                  fontSize: 20.0,
+                ),
+              ),
+              Text(
+                "\$ ${items['price']}",
+                style: const TextStyle(
+                  fontSize: 20.0,
+                ),
+              ),
+            ],
+          );
         });
-      },
-      child: Row(
-        children: [
-          Checkbox(
-              value: isChecked,
-              activeColor: Colors.blue,
-              onChanged: (value) {}),
-          const SizedBox(
-            width: 10.0,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "${widget.label}",
-                  style: const TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  "${widget.desckription}",
-                  maxLines: 2,
-                  overflow: TextOverflow.fade,
-                  style: const TextStyle(
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            width: 10.0,
-          ),
-          Text(
-            "\$${widget.price}",
-            style: const TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

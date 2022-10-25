@@ -7,6 +7,7 @@ class ExCardPackage extends StatefulWidget {
   final String? duration;
   final String? decription;
   final String? price;
+  final String? photo;
 
   const ExCardPackage({
     Key? key,
@@ -16,6 +17,7 @@ class ExCardPackage extends StatefulWidget {
     required this.duration,
     required this.decription,
     required this.price,
+    required this.photo,
   }) : super(key: key);
 
   @override
@@ -27,7 +29,7 @@ class _ExCarPackageState extends State<ExCardPackage> {
   Widget build(BuildContext context) {
     return Container(
       height: 180.0,
-      width: 150,
+      width: 140,
       margin: const EdgeInsets.symmetric(horizontal: 5.0),
       decoration: BoxDecoration(
         color: Colors.blue[600],
@@ -46,14 +48,14 @@ class _ExCarPackageState extends State<ExCardPackage> {
           Container(
             height: 80.0,
             width: 130.0,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
-                  "https://i.ibb.co/3pPYd14/freeban.jpg",
+                  "${widget.photo}",
                 ),
                 fit: BoxFit.cover,
               ),
-              borderRadius: BorderRadius.all(
+              borderRadius: const BorderRadius.all(
                 Radius.circular(
                   5.0,
                 ),
@@ -73,31 +75,8 @@ class _ExCarPackageState extends State<ExCardPackage> {
                   "${widget.titlePackate}",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                    fontSize: 12,
                     color: Colors.white,
-                  ),
-                ),
-                const Spacer(),
-                Container(
-                  height: 18.0,
-                  width: 30.0,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(
-                        5.0,
-                      ),
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "\$${widget.price}",
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue[600]!,
-                      ),
-                    ),
                   ),
                 ),
               ],
@@ -130,6 +109,14 @@ class _ExCarPackageState extends State<ExCardPackage> {
                     fontWeight: FontWeight.bold,
                     fontSize: 12,
                     color: Colors.grey[200]!.withOpacity(0.5),
+                  ),
+                ),
+                Text(
+                  "\$${widget.price}",
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
               ],
