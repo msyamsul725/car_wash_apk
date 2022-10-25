@@ -31,9 +31,9 @@ class _ExCarPackageState extends State<ExCardPackage> {
       height: 180.0,
       width: 140,
       margin: const EdgeInsets.symmetric(horizontal: 5.0),
-      decoration: BoxDecoration(
-        color: Colors.blue[600],
-        borderRadius: const BorderRadius.all(
+      decoration: const BoxDecoration(
+        color: Color(0xffA22D4E),
+        borderRadius: BorderRadius.all(
           Radius.circular(
             10.0,
           ),

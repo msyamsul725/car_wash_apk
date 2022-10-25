@@ -163,7 +163,7 @@ class SelectPackageView extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                backgroundColor: const Color(0xffA22D4E),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12), // <-- Radius
                 ),

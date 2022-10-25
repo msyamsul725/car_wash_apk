@@ -82,7 +82,7 @@ class SelectDateView extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: (controller.selectedDay ==
                                         item['DateDay'].toString())
-                                    ? Colors.blue
+                                    ? const Color(0xffA22D4E)
                                     : Colors.grey[200],
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(12.0),
@@ -157,7 +157,7 @@ class SelectDateView extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color:
                                     (item.toString() == controller.selectedTime)
-                                        ? Colors.blue
+                                        ? const Color(0xffA22D4E)
                                         : Colors.grey[200],
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(
@@ -189,7 +189,7 @@ class SelectDateView extends StatelessWidget {
               margin: const EdgeInsets.all(20.0),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: const Color(0xffA22D4E),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12), // <-- Radius
                   ),
