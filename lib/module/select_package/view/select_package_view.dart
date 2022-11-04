@@ -1,5 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fhe_template/core.dart';
+import 'package:fhe_template/module/select_package/widget/header.dart';
+import 'package:fhe_template/module/select_package/widget/package_wars.dart';
+import 'package:fhe_template/module/select_package/widget/photo.dart';
+import 'package:fhe_template/module/select_package/widget/reusible_checkbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,138 +22,59 @@ class SelectPackageView extends StatelessWidget {
 
         return Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: const Text(
-              "select package",
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            ),
-            backgroundColor: Colors.white,
-            elevation: 0,
-          ),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  Container(
-                    height: 300,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          "${item.photo}",
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          16.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  SizedBox(
-                    height: 180,
-                    child: StreamBuilder<QuerySnapshot>(
-                      stream: FirebaseFirestore.instance
-                          .collection("package_item")
-                          .where("toko_id", isEqualTo: item.id)
-                          .snapshots(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) return const Text("Error");
-                        if (snapshot.data == null) return Container();
-                        if (snapshot.data!.docs.isEmpty) {
-                          return const Text("No Data");
-                        }
-                        final data = snapshot.data!;
-                        return SizedBox(
-                          height: 140.0,
-                          child: ListView.builder(
-                            itemCount: data.docs.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              Map<String, dynamic> item = (data.docs[index]
-                                  .data() as Map<String, dynamic>);
-                              item["id"] = data.docs[index].id;
-                              return InkWell(
-                                onTap: () {
-                                  controller.selectedPackage =
-                                      item["id"].toString();
-                                },
-                                child: ExCardPackage(
-                                  onChanged: (value) {
-                                    (controller.selectedPackage ==
-                                            item["id"].toString())
-                                        ? Colors.orange
-                                        : Colors.white;
-                                  },
-                                  photo: item["photo"],
-                                  titlePackate: item["title_package"],
-                                  price: item["price_package"],
-                                  duration: item["duration_package"],
-                                  decription: item["description_package"],
-                                ),
-                              );
-                            },
-                          ),
-                        );
+                  PhotoWars(
+                      onChanged: (item) {
+                        controller.photo = item.toString();
+                        controller.update();
                       },
-                    ),
-                  ),
+                      item: item),
                   const SizedBox(
                     height: 20.0,
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    width: MediaQuery.of(context).size.width,
-                    child: const Text(
-                      "Add options",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                        color: Colors.grey,
-                      ),
-                    ),
+                  const HeaderA(),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  PackageWars(
+                      onChanged: (data) {
+                        controller.selectedNew = data.toString();
+                        controller.update();
+                      },
+                      item: item),
+                  const SizedBox(
+                    height: 20.0,
                   ),
                   const Divider(),
                   const SizedBox(
                     height: 10.0,
                   ),
-                  ChecBoxNew(
-                    onChanged: (data) {
-                      int price = 0;
-                      for (var element in data) {
-                        price = element + price;
-                      }
-                      controller.price = price;
+                  QCheckBox(
+                    onChanged: (value) {
+                      controller.checkBox = value.toString();
                       controller.update();
-                      debugPrint("harga: $price");
                     },
-                    price: "2000",
-                    label: "Tempe",
-                    value: "false",
-                    item: const [
-                      {"title": "Wax", "price": 20, "status": false},
+                    label: "Tambah Pilihan :",
+                    items: const [
                       {
-                        "title": "Scratch Removal",
+                        "label": "Wax",
+                        "price": 20,
+                      },
+                      {
+                        "label": "Scratch Removal",
                         "price": 30,
-                        "status": false
                       },
                       {
-                        "title": "Water-dot Removal",
+                        "label": "Water-dot Removal",
+                        "price": 30,
+                      },
+                      {
+                        "label": "Post descri sap",
                         "price": 40,
-                        "status": false
-                      },
-                      {
-                        "title": "Post descri sap",
-                        "price": 42,
-                        "status": false
                       },
                     ],
                   ),
@@ -168,7 +92,13 @@ class SelectPackageView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12), // <-- Radius
                 ),
               ),
-              onPressed: () => Get.to(const SelectDateView()),
+              onPressed: () => Get.to(SelectDateView(
+                item: {
+                  "Checkbox": controller.checkBox,
+                  "photo": item,
+                  "package": controller.selectedNew
+                },
+              )),
               child: const Text("Next"),
             ),
           ),

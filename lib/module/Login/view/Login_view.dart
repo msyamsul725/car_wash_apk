@@ -105,7 +105,7 @@ class LoginView extends StatelessWidget {
                     child: TextFormField(
                       initialValue: '123456',
                       maxLength: 20,
-                      obscureText: true,
+                      obscureText: false,
                       decoration: const InputDecoration(
                         labelText: 'Password',
                         labelStyle: TextStyle(

@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 class ChecBoxNew extends StatefulWidget {
   final String value;
   final Function(List Data) onChanged;
-  final String? label;
-  final String? price;
-  List? item;
+
+  List item;
 
   ChecBoxNew({
     Key? key,
     required this.value,
     required this.onChanged,
-    this.label,
-    this.price,
-    this.item,
+    required this.item,
   }) : super(key: key);
 
   @override
@@ -26,10 +23,10 @@ class _ChecBoxNewState extends State<ChecBoxNew> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: widget.item!.length,
+        itemCount: widget.item.length,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          var items = widget.item![index];
+          var items = widget.item[index];
           bool selected =
               selectedValues.contains(items["price"]) ? true : false;
 
