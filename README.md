@@ -37,7 +37,7 @@ flutter pub get --verbose
 
 
 ### Screenshot
-![alt text](https://github.com/msyamsul725/aplikasi-absen/blob/main/assets/image/sc_fitur.jpg)
+![alt text](https://github.com/msyamsul725/car_wash_apk/blob/main/assets/image/sc_fitur.jpg)
 
 <br/>
 
